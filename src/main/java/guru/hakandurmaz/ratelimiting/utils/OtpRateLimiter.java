@@ -33,7 +33,7 @@ public class OtpRateLimiter {
     public boolean isBlocked(String clientIPAddress) {
         try {
             final var redisKey = String.join("_", CACHE_KEY_PREFIX, clientIPAddress);
-            final Duration duration = Duration.ofMinutes(rateLimiterProperties.getTtl());
+            final Duration duration = Duration.ofMillis(rateLimiterProperties.getTtl());
             final Bucket bucket = buildBucket(redisKey, rateLimiterProperties.getLimit(), duration);
             if (bucket.tryConsume(INITIAL_HIT_COUNT)) {
                 final String bucketJson = buildBucketJson(bucket);

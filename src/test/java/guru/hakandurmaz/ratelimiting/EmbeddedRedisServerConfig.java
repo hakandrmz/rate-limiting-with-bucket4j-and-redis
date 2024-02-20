@@ -19,13 +19,10 @@ public class EmbeddedRedisServerConfig {
 
     @PostConstruct
     public void postConstruct() throws IOException {
-        for (int i = 1; i < 6; i++) {
-            try {
-                redisServer.start();
-                break;
-            } catch (IOException exception) {
-                this.redisServer = new RedisServer(redisProperties.getRedisPort() + i);
-            }
+        try {
+            redisServer.start();
+        } catch (IOException exception) {
+            this.redisServer = new RedisServer(redisProperties.getRedisPort());
         }
     }
 
