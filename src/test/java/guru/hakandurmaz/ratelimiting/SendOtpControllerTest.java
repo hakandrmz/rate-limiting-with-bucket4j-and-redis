@@ -40,7 +40,9 @@ class SendOtpControllerTest {
 
     @Test
     void when_send_otp_request_then_return_ok() throws Exception {
-        SendOtpRequest sendOtpRequest = new SendOtpRequest("1234567890");
+        Faker faker = new Faker();
+        SendOtpRequest sendOtpRequest = new SendOtpRequest(faker.phoneNumber()
+                .phoneNumber());
         ResultActions perform = mockMvc.perform(post("/api/send-otp")
                 .content(objectMapper.writeValueAsString(sendOtpRequest))
                 .contentType(MediaType.APPLICATION_JSON));
